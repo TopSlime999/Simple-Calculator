@@ -1,26 +1,28 @@
-""" Each Tested method will have a certain code that goes with it for ultimate testing.
+"""
 produced my Mr. Waltz
 Date: feb 15  - Vr 2 feb 20, 2023 (To be added: Psuedoparser)
 Reason: I just kinda want a fun wittle calculator. """
 
 #Variables and stuff  
 equation = input("> ")
-def wrap(equation):
+# converts string into a list.
+def wrap(equation: str) -> list:
     listed = []
     for l in equation:
         listed.append(l)
-    print(listed)
     return(listed)
 
 listed = wrap(equation) # All of above works.
 
-def unwrap(listed):
+# loops over the list, and gives the data its own variables. 
+def unwrap(listed: list) -> dictionary:
     first_half = str()
     second_half = str()
     ops = ['x','/','-','+', '^']
     used = str()
     second_half_write = False
     for x in listed:
+        # switches on operator. 
         if x.isdigit():
             if not second_half_write:            
                 first_half += str(x)
@@ -31,6 +33,7 @@ def unwrap(listed):
             used = str(x)
             second_half_write = not second_half_write
     
+    # returns as dictionary. 
     equation = {
         "first_half" : first_half,
         "second_half" : second_half,
@@ -44,8 +47,8 @@ def unwrap(listed):
        
 output = unwrap(listed)
 listed, first_half, second_half = output
-print(output["operator"] )
 
+# runs the above equation
 def runner(equation: dict):
     
     if output["operator"] == '+':
