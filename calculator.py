@@ -15,7 +15,7 @@ def wrap(equation: str) -> list:
 listed = wrap(equation) # All of above works.
 
 # loops over the list, and gives the data its own variables. 
-def unwrap(listed: list) -> dictionary:
+def unwrap(listed: list) -> dict:
     first_half = str()
     second_half = str()
     ops = ['x','/','-','+', '^']
