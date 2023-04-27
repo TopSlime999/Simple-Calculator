@@ -1,10 +1,13 @@
 """
 produced my Mr. Waltz
+Update: Apr 27, 2023. Added decimals and pi (p)
 Date: feb 15  - Vr 2 feb 20, 2023 (To be added: Psuedoparser)
-Reason: I just kinda want a fun wittle calculator. """
+Reason: I just kinda want a fun wittle calculator.
+"""
 
 #Variables and stuff  
 equation = input("> ")
+equation = equation.replace('p', '3.1415926535897932384626')
 # converts string into a list.
 def wrap(equation: str) -> list:
     listed = []
@@ -23,7 +26,7 @@ def unwrap(listed: list) -> dict:
     second_half_write = False
     for x in listed:
         # switches on operator. 
-        if x.isdigit():
+        if x.isdigit() or x == '.':
             if not second_half_write:            
                 first_half += str(x)
             else:
@@ -52,15 +55,15 @@ listed, first_half, second_half = output
 def runner(equation: dict):
     
     if output["operator"] == '+':
-        print(int(output["first_half"]) + int(output["second_half"]) )
+        print(float(output["first_half"]) + float(output["second_half"]) )
     elif output["operator"] == '-':
-        print(int(output["first_half"]) - int(output["second_half"]) )
+        print(float(output["first_half"]) - float(output["second_half"]) )
     elif output["operator"] == '/':
-        print(int(output["first_half"]) / int(output["second_half"]) )
+        print(float(output["first_half"]) / float(output["second_half"]) )
     elif output["operator"] == '^':
-        print(int(output["first_half"]) ** int(output["second_half"]))
+        print(float(output["first_half"]) ** float(output["second_half"]))
     elif output["operator"] == 'x':
-        print(int(output["first_half"]) * int(output["second_half"]) )
+        print(float(output["first_half"]) * float(output["second_half"]) )
     
     
 runner(output)
