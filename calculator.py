@@ -5,24 +5,22 @@ Date: feb 15  - Vr 2 feb 20, 2023 (To be added: Psuedoparser)
 Reason: I just kinda want a fun wittle calculator.
 """
 global run
+global b
 verified = 0
 run = 0
-while True: #Loopity Toopity. 
-
-    #Variables and stuff
+while True:
     def startup():
         equation = input("> ")
         equation = equation.replace('p', '3.1415926535897932384626')
         if run >= 1:
             equation = equation.replace('a', str(pAnswer))
         if 'a' in equation and (run < 1) == True:
-            print("Syntax erorr:")
-            startup()
+            print("Syntax erorr:\n rerun the program to continue.")
+            exit
         return equation
 
     ops = ['x','/','-','+', '^']
     equation = startup()
-
 
     if equation.isdigit() != True:
         for l in ops:
@@ -31,9 +29,8 @@ while True: #Loopity Toopity.
                 if verified == 1:
                     pass
                 else:
-                    print("Syntax Error:")
-                    startup()
-
+                    print("Syntax Error:\nrerun the program to continue")
+                    exit
 
     # converts string into a list.
     def wrap(equation: str) -> list:
@@ -72,15 +69,13 @@ while True: #Loopity Toopity.
         
         return(equation)
             
-            
-    
-           
     output = unwrap(listed)
     listed, first_half, second_half = output
     
     # runs the above equation
     def runner(equation: dict):
         
+        try:
             if output["operator"] == '+':
                 b = (float(output["first_half"]) + float(output["second_half"]))
             
@@ -95,12 +90,9 @@ while True: #Loopity Toopity.
             elif output["operator"] == 'x':
                 b = (float(output["first_half"]) * float(output["second_half"]) )    
             return b
+        except:
+            runner(output)
     
     pAnswer = runner(output)
     print(pAnswer)
-    
-    run += 1
-    
-    # print(eval(output["first_half"] + output["operator"] + output['second_half']))
-    # Simple but unsafe...             
 
