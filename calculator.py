@@ -6,24 +6,27 @@ Reason: I just kinda want a fun wittle calculator.
 """
 global run
 global b
+
 verified = 0
+Previous_Ans = int()
 run = 0
 while True:
     def startup():
         equation = input("> ")
         equation = equation.replace('p', '3.1415926535897932384626')
-        if run >= 1:
-            equation = equation.replace('a', str(pAnswer))
+        if run >= 0:
+            equation = equation.replace('a', str(Previous_Ans))
+        
         if 'a' in equation and (run < 1) == True:
             print("Syntax erorr:\n rerun the program to continue.")
-            exit
+            exit()
         return equation
 
-    ops = ['x','/','-','+', '^']
+    opps = ['x','/','-','+', '^','*']
     equation = startup()
 
     if equation.isdigit() != True:
-        for l in ops:
+        for l in opps:
             if str(l) in equation == True:
                 verified += 1
                 if verified == 1:
@@ -45,7 +48,7 @@ while True:
     def unwrap(listed: list) -> dict:
         first_half = str()
         second_half = str()
-        ops = ['x','/','-','+', '^']
+        opps = ['x','/','-','+', '^','*']
         used = str()
         second_half_write = False
         for x in listed:
@@ -56,7 +59,7 @@ while True:
                 else:
                     second_half += str(x)
                 #listed.remove(x)
-            elif x in ops:
+            elif x in opps:
                 used = str(x)
                 second_half_write = not second_half_write
         
@@ -77,22 +80,24 @@ while True:
         
         try:
             if output["operator"] == '+':
-                b = (float(output["first_half"]) + float(output["second_half"]))
+                result = (float(output["first_half"]) + float(output["second_half"]))
             
             elif output["operator"] == '-':
-                b = (float(output["first_half"]) - float(output["second_half"]))
+                result = (float(output["first_half"]) - float(output["second_half"]))
             
             elif output["operator"] == '/':
-                b = (float(output["first_half"]) / float(output["second_half"]) )
+                result = (float(output["first_half"]) / float(output["second_half"]) )
+                
             elif output["operator"] == '^':
-                b = (float(output["first_half"]) ** float(output["second_half"]))
+                result = (float(output["first_half"]) ** float(output["second_half"]))
         
-            elif output["operator"] == 'x':
-                b = (float(output["first_half"]) * float(output["second_half"]) )    
-            return b
-        except:
-            runner(output)
+            elif output["operator"] == 'x' or '*':
+                result = (float(output["first_half"]) * float(output["second_half"]) )    
+            return result
+            
+        except ValueError:
+            print("An Invalid Number was entered. . .\nTry again and ensure you only use floats and integers\nEx: (123), (1.000), (-123)")
+            
     
-    pAnswer = runner(output)
-    print(pAnswer)
-
+    Previous_Ans = runner(output)
+    print(f"Answer is --> {Previous_Ans}")
